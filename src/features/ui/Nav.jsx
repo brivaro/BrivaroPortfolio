@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-
 import DarkModeToggle from "./DarkModeToggle";
 
 function Nav({ isIntersecting }) {
@@ -23,13 +22,13 @@ function Nav({ isIntersecting }) {
 
 export default Nav;
 
-function NavItem({ href, children }) {
+function NavItem({ href, children }) {  // children es el texto Proyectos, Educación, Sobre mí, Contacto
   return (
     <a
       className="relative block rounded-full px-2 py-2 outline-none transition-all duration-300 hover:text-cyan focus:ring-2 focus:ring-offset-2 focus:ring-offset-white/75 dark:hover:text-cyan"
       href={href}
     >
-      {children}
+      {children} 
     </a>
   );
 }

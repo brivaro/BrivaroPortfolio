@@ -21,23 +21,30 @@ const queryClient = new QueryClient({
 const year = new Date().getFullYear();
 
 function App() {
-  const [isIntersecting, setIsIntersecting] = useState(false);
+  const [isIntersecting, setIsIntersecting] = useState(false); // isIntersecting es un booleano que se inicializa en false
 
-  const ref = useRef(null);
+  const ref = useRef(null); // ref se le pasa a SectionHero para que sepa qué elemento observar
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsIntersecting(entry.isIntersecting);
+    const observer = new IntersectionObserver( // IntersectionObserver es una API que permite observar si un elemento está dentro del viewport o no
+      ([entry]) => { // entry es un array que contiene información sobre la intersección del elemento observado
+        setIsIntersecting(entry.isIntersecting); // entry.isIntersecting es un booleano que indica si el elemento está dentro del viewport o no
       },
-      { rootMargin: "-430px" },
+      { rootMargin: "-430px" }, // rootMargin define un margen adicional alrededor del viewport, el callback se activará cuando el elemento esté a 430px de entrar al viewport.
     );
 
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [isIntersecting]);
+    if (ref.current) {
+      observer.observe(ref.current); // se evita que se creen múltiples observadores
+    }
 
-  return (
+    return () => observer.disconnect();
+  }, []); // Array vacío para que solo se ejecute una vez
+  
+  //observer.observe(ref.current);
+  //return () => observer.disconnect();
+//}, [isIntersecting]);
+
+  return ( // ref es una referencia al elemento que se está observando para que 430 píxeles antes de que entre al viewport se active el callback
     <DarkModeProvider>
       <QueryClientProvider client={queryClient}>
         <div className="relative">
@@ -53,8 +60,8 @@ function App() {
           <footer className="mx-auto flex max-w-4xl items-center justify-between px-4 py-6 text-xs text-gray-500 md:text-base">
             <p className="w-1/2 md:w-full">
               &copy; {year}{" "}
-              <a href="https://www.linkedin.com/in/santiago-sepúlveda-022a8a217/">
-                Santiago Sepúlveda.
+              <a href="https://www.linkedin.com/in/brian-valiente-rodenas/">
+                Brian Valiente Rodenas.
               </a>{" "}
               Casi todos los derechos reservados
             </p>
@@ -68,7 +75,7 @@ function App() {
               </a>
               <a
                 className="font-bold transition-all duration-300 hover:underline"
-                href="mailto:santiagosepul2109@gmail.com?Subject=Interesado%20en%20contactarte"
+                href="mailto:brian.1613.bv@gmail.com?Subject=Contactar%20con%20Brian"
               >
                 Contacto
               </a>
