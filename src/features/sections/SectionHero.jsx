@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Envelope, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
-import DarkImg from "../../assets/heroimg-dark.webp";
-import LightImg from "../../assets/heroimg-light.webp";
+import myImage from "../../assets/face.webp";
+//import DarkImg from "../../assets/heroimg-dark.webp";
+//import LightImg from "../../assets/heroimg-light.webp";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import Button from "../ui/Button";
 import IA3D from "../../models/IA3D";
@@ -18,8 +19,8 @@ function SectionHero({ reference: ref }) {
       
       <picture>
         <img
-          className=" aspect-square w-24 rounded-full"
-          src={isDarkMode ? LightImg : DarkImg}
+          className=" aspect-square w-36 rounded-full"
+          src={isDarkMode ? myImage : myImage}
           alt="Santiago Sepúlveda Icon"
         />
       </picture>

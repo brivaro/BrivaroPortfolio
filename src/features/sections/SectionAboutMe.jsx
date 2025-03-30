@@ -1,5 +1,6 @@
 import { User } from "@phosphor-icons/react";
-import AboutMeImg from "../../assets/aboutme.webp";
+//import AboutMeImg from "../../assets/aboutme.webp";
+import MeImg from "../../assets/me.webp";
 import { useDarkMode } from "../../hooks/useDarkMode";
 
 function SectionAboutMe() {
@@ -17,8 +18,8 @@ function SectionAboutMe() {
       <div className="mt-2 grid grid-cols-1 sm:grid-cols-aboutme-layout">
         <picture className="flex items-center justify-center sm:order-1">
           <img
-            className="aspect-square h-52 w-52 rotate-6 rounded-[4rem] object-cover shadow-xl"
-            src={AboutMeImg}
+            className="aspect-square h-80 w-52 rotate-6 rounded-[4rem] object-cover shadow-xl"
+            src={MeImg}
             alt="Santiago Sepúlveda Dev."
           />
         </picture>

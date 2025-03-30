@@ -5,7 +5,7 @@ function Nav({ isIntersecting }) {
   return (
     <header className="fixed top-0 z-10 mx-auto mt-2 flex w-full items-center justify-center">
       <nav
-        className={`flex items-center justify-center gap-3 rounded-full px-2 text-[10px] font-semibold text-inherit transition-all duration-300 sm:px-3 sm:text-sm dark:text-white ${isIntersecting ? "bg-white/0 dark:bg-black/0" : "bg-white/40 shadow-lg backdrop-blur-md"}`}
+        className={`flex items-center justify-center gap-3 rounded-full px-2 text-[15px] font-semibold text-inherit transition-all duration-300 sm:px-3 sm:text-xl dark:text-white ${isIntersecting ? "bg-white/0 dark:bg-black/0" : "bg-white/40 shadow-lg backdrop-blur-md"}`}
       >
         <NavItem href="#proyectos">Proyectos</NavItem>
         <NavItem href="#educacion">Educación</NavItem>

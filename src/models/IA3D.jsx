@@ -19,7 +19,7 @@ function Model() {
       if (modelRef.current) {
         // Animación: rotación y un leve movimiento vertical
         // modelRef.current.rotation.y += delta * 0.5; si quiero que gire poner delta en los parámetros de userFrame
-        modelRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.15 - 0.3;
+        modelRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.15 - 0.6;
       }
   });
   
