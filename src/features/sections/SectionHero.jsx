@@ -4,6 +4,7 @@ import DarkImg from "../../assets/heroimg-dark.webp";
 import LightImg from "../../assets/heroimg-light.webp";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import Button from "../ui/Button";
+import IA3D from "../../models/IA3D";
 
 function SectionHero({ reference: ref }) {
   const { isDarkMode } = useDarkMode();
@@ -13,6 +14,8 @@ function SectionHero({ reference: ref }) {
       ref={ref}
       className="mx-auto mt-24 flex flex-col items-center md:w-4/5"
     >
+      <IA3D />
+      
       <picture>
         <img
           className=" aspect-square w-24 rounded-full"
@@ -64,7 +67,7 @@ function SectionHero({ reference: ref }) {
 
         <Button href="mailto:santiagosepul2109@gmail.com?Subject=Interesado%20en%20contactarte">
           <Envelope size={24} weight="bold" />
-          <span>santiagosepul2109@gmail.com</span>
+          <span>Email</span>
         </Button>
       </div>
     </section>

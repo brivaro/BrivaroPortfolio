@@ -12,9 +12,14 @@
   "dependencies": {
     "@notionhq/client": "^2.3.0",
     "@phosphor-icons/react": "^2.1.7",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-query": "^3.39.3"
+    "@react-three/drei": "^10.0.5",
+    "@react-three/fiber": "^9.1.0",
+    "@tanstack/react-query": "^5.71.0",
+    "@types/three": "^0.175.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-responsive": "^10.0.1",
+    "three": "^0.175.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.19",

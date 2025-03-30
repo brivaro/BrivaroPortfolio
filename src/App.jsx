@@ -1,10 +1,11 @@
+/* eslint-disable react/no-unknown-property */
 import SectionProjects from "./features/sections/SectionProjects";
 import SectionEducation from "./features/sections/SectionEducation";
 import SectionHero from "./features/sections/SectionHero";
 import SectionAboutMe from "./features/sections/SectionAboutMe";
 import Nav from "./features/ui/Nav";
 
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import SectionSkills from "./features/sections/SectionSkills";
 import { DarkModeProvider } from "./context/DarkModeContext";
