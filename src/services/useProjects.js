@@ -6,7 +6,6 @@ export function useProjects() {
     isLoading,
     data: projects,
     error,
-  } = useQuery({ queryKey: ["projects"], queryFn: getProjects, retry: false, initialData: [], });
-  // *TODO: quitar el initialData cuando esté listo el fetchNotion
+  } = useQuery({ queryKey: ["projects"], queryFn: getProjects, retry: false });
   return { isLoading, projects, error };
 }

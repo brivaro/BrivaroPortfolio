@@ -6,7 +6,7 @@ import { useDarkMode } from "../../hooks/useDarkMode";
 
 function SectionProjects() {
   const { isDarkMode } = useDarkMode();
-  const { isLoading, projects } = useProjects();
+  const { isLoading, projects, error } = useProjects();
   return (
     <section id="proyectos" className="mt-16 pt-12">
       <div className="flex items-center gap-3">
@@ -39,8 +39,16 @@ function SectionProjects() {
           </div>
         </div>
       )}
-      {!isLoading && (
+      {error && (
+        <div className="mt-8 rounded-lg border border-red-500/40 bg-red-500/10 p-4 text-red-600">
+          Hubo un error cargando los proyectos. {String(error.message)}
+        </div>
+      )}
+      {!isLoading && !error && (
         <ul className="mt-8 flex w-full flex-col">
+          {projects.length === 0 && (
+            <li className="text-center text-gray7 dark:text-gray4">No hay proyectos visibles. Marca isShown en Notion.</li>
+          )}
           {projects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}

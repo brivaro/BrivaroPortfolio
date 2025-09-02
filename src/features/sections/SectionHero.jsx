@@ -48,7 +48,7 @@ function SectionHero({ reference: ref }) {
         <div className="flex items-center">
           <span className="relative inline-flex overflow-hidden rounded-full p-[1px]">
             <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#51E4B8_0%,#21554E_50%,#51E4B8_100%)] "></span>
-            <div className="inline-flex w-full cursor-pointer items-center justify-center whitespace-nowrap rounded-full bg-green-100 px-3 py-1 text-sm text-green-800 backdrop-blur-3xl dark:bg-gray-800 dark:text-white/80">
+            <div className="inline-flex w-full cursor-pointer items-center justify-center whitespace-nowrap rounded-full bg-green-100 px-4 py-2 text-base text-green-800 backdrop-blur-3xl transition-all duration-300 hover:bg-green-200 dark:bg-gray-800 dark:text-white/80 dark:hover:bg-gray-700">
               Disponible para trabajar
             </div>
           </span>
@@ -56,20 +56,26 @@ function SectionHero({ reference: ref }) {
       </a>
 
       <div className="mt-8 flex flex-wrap justify-center gap-3">
-        <Button href="https://www.linkedin.com/in/santiago-sepúlveda-022a8a217/">
-          <LinkedinLogo size={24} weight="bold" />
-          <span>Linkedin</span>
-        </Button>
+        <span className="relative inline-flex overflow-hidden rounded-full p-[1px]">
+          <Button href="https://www.linkedin.com/in/santiago-sepúlveda-022a8a217/">
+            <LinkedinLogo size={24} weight="bold" />
+            <span>Linkedin</span>
+          </Button>
+        </span>
+        
+        <span className="relative inline-flex overflow-hidden rounded-full p-[1px]">
+          <Button href="https://github.com/SantiagoS2109">
+            <GithubLogo size={24} weight="bold" />
+            <span>Github</span>
+          </Button>
+        </span>
 
-        <Button href="https://github.com/SantiagoS2109">
-          <GithubLogo size={24} weight="bold" />
-          <span>Github</span>
-        </Button>
-
-        <Button href="mailto:santiagosepul2109@gmail.com?Subject=Interesado%20en%20contactarte">
-          <Envelope size={24} weight="bold" />
-          <span>Email</span>
-        </Button>
+        <span className="relative inline-flex overflow-hidden rounded-full p-[1px]">
+          <Button href="mailto:santiagosepul2109@gmail.com?Subject=Interesado%20en%20contactarte">
+            <Envelope size={24} weight="bold" />
+            <span>Email</span>
+          </Button>
+        </span>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import SectionProjects from "./features/sections/SectionProjects";
+import SectionExperience from "./features/sections/SectionExperience";
 import SectionEducation from "./features/sections/SectionEducation";
 import SectionHero from "./features/sections/SectionHero";
 import SectionAboutMe from "./features/sections/SectionAboutMe";
@@ -53,6 +54,7 @@ function App() {
           <Nav isIntersecting={isIntersecting} />
           <main className="mx-auto max-w-4xl  px-4 py-8">
             <SectionHero reference={ref} />
+            <SectionExperience />
             <SectionProjects />
             <SectionEducation />
             <SectionAboutMe />
