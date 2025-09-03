@@ -6,7 +6,7 @@ import TechBadge from "./TechBadge";
 
 // Función auxiliar para parsear el string de tecnologías
 const parseTechnologies = (techString) => {
-    console.log("String recibido para parsear:", techString);
+    //console.log("String recibido para parsear:", techString);
 
     if (!techString || typeof techString !== 'string') {
         console.log("El string es inválido o no existe.");
@@ -26,8 +26,7 @@ const parseTechnologies = (techString) => {
         }
     }
 
-    // AÑADE ESTE OTRO CONSOLE.LOG
-    console.log("Resultado del parseo:", technologies);
+    //console.log("Resultado del parseo:", technologies);
     return technologies;
 };
 function ProjectCard({ project }) {

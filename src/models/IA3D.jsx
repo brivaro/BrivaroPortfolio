@@ -241,7 +241,6 @@ function IA3D() {
         
         <group position={modelPos}>
           <Suspense fallback={null}> 
-            {/* Pasamos el estado de la órbita al modelo */}
             <Model 
               scaleMultiplier={0.5} 
               yOffset={1.6} 
@@ -250,7 +249,6 @@ function IA3D() {
           </Suspense>
         </group>
 
-        {/* Pasamos las funciones para actualizar el estado al controlador */}
         <CameraController 
           activeCameraState={activeCameraState} 
           manualControlsEnabled={ENABLE_MANUAL_DEBUG && !isMobile}

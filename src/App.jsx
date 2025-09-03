@@ -63,9 +63,11 @@ function App() {
           <footer className="mx-auto flex max-w-4xl items-center justify-between px-4 py-6 text-xs text-gray-500 md:text-base">
             <p className="w-1/2 md:w-full">
               &copy; {year}{" "}
-              <a href="https://www.linkedin.com/in/brian-valiente-rodenas/">
-                Brian Valiente Rodenas.
+              <a href="https://www.linkedin.com/in/brian-valiente-rodenas/" target="_blank" rel="noopener noreferrer">
+                Brian Valiente Rodenas
               </a>{" "}
+              | <a href="mailto:brian.1613.bv@gmail.com">Contáctame</a>
+              <br />
               Casi todos los derechos reservados
             </p>
 
@@ -78,9 +80,9 @@ function App() {
               </a>
               <a
                 className="font-bold transition-all duration-300 hover:underline"
-                href="mailto:brian.1613.bv@gmail.com?Subject=Contactar%20con%20Brian"
+                href="#experiencia"
               >
-                Contacto
+                Experiencia
               </a>
             </div>
           </footer>

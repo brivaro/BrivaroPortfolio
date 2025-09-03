@@ -20,30 +20,32 @@ function SectionAboutMe() {
           <img
             className="aspect-square h-80 w-52 rotate-6 rounded-[4rem] object-cover shadow-xl"
             src={MeImg}
-            alt="Santiago Sepúlveda Dev."
+            alt="Brian Valiente Rodenas"
           />
         </picture>
         <div className="mt-6 flex flex-col gap-3 text-xs lg:text-base dark:text-gray4">
           <p>
-            Mi nombre es Santiago Sepúlveda, y tengo 21 años. Desde mi infancia,
-            he sentido una profunda fascinación por el mundo de la tecnología y
-            la creatividad. Recuerdo haber pasado horas dibujando en Paint
-            cuando tuve mi primer encuentro con un computador con Windows XP.
+            Soy Brian Valiente Rodenas, Ingeniero Informático especializado en Big Data 
+            e Inteligencia Artificial. Con más de dos años de experiencia profesional, 
+            he liderado proyectos de automatización de procesos de datos, integración de 
+            modelos de Machine Learning y desarrollo de soluciones avanzadas que han 
+            optimizado la toma de decisiones estratégicas en empresas tecnológicas.
           </p>
-
           <p>
-            {" "}
-            Durante mis estudios secundarios, experimenté mi primer acercamiento
-            al ámbito de la programación mediante PHP. Más adelante, descubrí la
-            animación 3D, lo que impulsó mi decisión de dedicarme a la
-            disciplina que hoy en día desarrollo.{" "}
+            Mi enfoque combina la excelencia técnica con habilidades de comunicación y 
+            liderazgo, gestionando equipos multidisciplinares y colaborando en entornos 
+            internacionales. Como divulgador científico, dirijo un canal de YouTube con 
+            más de 16.000 seguidores, donde comparto contenido educativo sobre ciencia 
+            y tecnología.
           </p>
-
           <p>
-            En la actualidad, me dedico a estudiar desarrollo web de manera
-            autodidacta, complementando el conocimiento que estoy adquiriendo en
-            mi pregrado. Asimismo, me esfuerzo por perfeccionar otro de mis
-            campos de interés predilectos: la animación.
+            <strong>Premios y reconocimientos:</strong> Finalista en los Premios Internet, 
+            y formación avanzada en sistemas de automatización, ciberseguridad, IA y AWS. 
+            Mi compromiso con la innovación y el aprendizaje continuo me permite adaptarme 
+            rápidamente a nuevos retos y aportar valor en proyectos de alto impacto.
+          </p>
+          <p>
+            <strong>Idiomas:</strong> Español (nativo), Inglés (C1), Valenciano (C1).
           </p>
         </div>
       </div>

@@ -10,10 +10,10 @@ import IA3D from "../../models/IA3D";
 function SectionHero({ reference: ref }) {
   const { isDarkMode } = useDarkMode();
 
-  return (
+  return ( //border-4 border-blue-40
     <section
       ref={ref}
-      className="mx-auto mt-20 flex flex-col items-center md:w-4/5"
+      className="mx-auto mt-20 flex flex-col items-center"
     >
       <IA3D />
       
@@ -21,27 +21,32 @@ function SectionHero({ reference: ref }) {
         <img
           className=" aspect-square w-36 rounded-full"
           src={isDarkMode ? myImage : myImage}
-          alt="Santiago Sepúlveda Icon"
+          alt="Brian Valiente Rodenas Icon"
         />
       </picture>
-      <h1 className="mt-3 font-RedHat text-4xl font-bold text-gray9 sm:text-6xl dark:text-white">
-        Hola, soy Santiago
+      <h1 className="mt-3 font-RedHat text-4xl font-bold text-gray9 sm:text-6xl dark:text-white text-center">
+        Hola, soy Brian
       </h1>
 
       <p className="mt-4 text-center text-lg sm:w-2/3 sm:text-2xl dark:text-gray4">
-        Ingeniero Multimedia.{" "}
-        <span className="font-medium text-cyan8">
-          {" "}
-          Desarrollador Web y Animador 3D.
-        </span>{" "}
-        <span className="font-medium text-teal8">
-          De Cúcuta, Colombia.
-        </span>{" "}
-        Apasionado por la creatividad.
+        Ingeniero Informático especializado en{" "}
+        <span className="font-medium text-green8">Inteligencia Artificial. </span>{" "}
+        <span className="font-medium text-blue-800 dark:text-blue-400">+2 años de experiencia</span>
+        {" "}
+        en
+        {" "}
+        <span className="font-medium text-teal8">automatizaciones</span>
+        , modelos de
+        {" "}
+        <span className="font-medium text-teal8">modelos de ML</span>
+        {" "}
+        y desarrollo de
+        {" "}
+        <span className="font-medium text-teal8">soluciones estratégicas.</span>
       </p>
 
       <a
-        href="https://www.linkedin.com/in/santiago-sepúlveda-022a8a217/"
+        href="https://www.linkedin.com/in/brian-valiente-rodenas/"
         rel="noopener"
         className="mt-4 flex items-center rounded-full outline-none transition focus:ring-2 focus:ring-offset-2 md:justify-center md:hover:scale-105"
       >
@@ -57,28 +62,34 @@ function SectionHero({ reference: ref }) {
 
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <span className="relative inline-flex overflow-hidden rounded-full p-[1px]">
-          <Button href="https://www.linkedin.com/in/santiago-sepúlveda-022a8a217/">
+          <Button href="https://www.linkedin.com/in/brian-valiente-rodenas/">
             <LinkedinLogo size={24} weight="bold" />
             <span>Linkedin</span>
           </Button>
         </span>
-        
         <span className="relative inline-flex overflow-hidden rounded-full p-[1px]">
-          <Button href="https://github.com/SantiagoS2109">
+          <Button href="https://github.com/brivaro">
             <GithubLogo size={24} weight="bold" />
             <span>Github</span>
           </Button>
         </span>
-
         <span className="relative inline-flex overflow-hidden rounded-full p-[1px]">
-          <Button href="mailto:santiagosepul2109@gmail.com?Subject=Interesado%20en%20contactarte">
+          <Button href="mailto:brian.1613.bv@gmail.com?Subject=Contactar%20con%20Brian">
             <Envelope size={24} weight="bold" />
             <span>Email</span>
           </Button>
         </span>
+        
       </div>
     </section>
   );
 }
-
+/*
+<span className="relative inline-flex overflow-hidden rounded-full p-[1px]">
+  <Button href="https://www.youtube.com/@mrryanoficial">
+    <YoutubeLogo size={24} weight="bold" />
+    <span>YT</span>
+  </Button>
+</span>
+ */
 export default SectionHero;

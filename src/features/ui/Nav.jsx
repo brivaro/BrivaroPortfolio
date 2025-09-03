@@ -11,7 +11,7 @@ function Nav({ isIntersecting }) {
         <NavItem href="#proyectos">Proyectos</NavItem>
         <NavItem href="#educacion">Educación</NavItem>
         <NavItem href="#sobremi">Sobre mí</NavItem>
-        <NavItem href="mailto:santiagosepul2109@gmail.com?Subject=Interesado%20en%20contactarte">
+        <NavItem href="mailto:brian.1613.bv@gmail.com?Subject=Contactar%20con%20Brian">
           Contacto
         </NavItem>
         <DarkModeToggle />
