@@ -40,8 +40,9 @@ function SectionAboutMe() {
           </p>
           <p>
             <strong>Premios y reconocimientos:</strong> Finalista en los Premios Internet, 
-            y formación avanzada en sistemas de automatización, ciberseguridad, IA y AWS. 
-            Mi compromiso con la innovación y el aprendizaje continuo me permite adaptarme 
+            y formación avanzada en sistemas de automatización, domótica, ciberseguridad,
+            IA, Data Science, Big Data, Cloud Computing, Azure AI Services y AWS. Mi 
+            compromiso con la innovación y el aprendizaje continuo me permite adaptarme 
             rápidamente a nuevos retos y aportar valor en proyectos de alto impacto.
           </p>
           <p>

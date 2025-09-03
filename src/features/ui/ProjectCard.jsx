@@ -37,7 +37,7 @@ function ProjectCard({ project }) {
       <picture className="aspect-video overflow-hidden rounded-xl transition-all duration-300 hover:shadow-lg dark:shadow-white ">
         {project.img ? (
           <img
-            className="scale-105 rounded-xl transition-all duration-300 ease-in-out hover:scale-100"
+            className="w-full h-full object-cover rounded-xl transition-all duration-300 ease-in-out hover:scale-105"
             src={project.img}
             alt={project.title || "Imagen del proyecto"}
           />
