@@ -1,6 +1,6 @@
 import { User } from "@phosphor-icons/react";
-//import AboutMeImg from "../../assets/aboutme.webp";
-import MeImg from "../../assets/me.webp";
+import MeImg from "../../assets/aboutme.webp";
+//import MeImg from "../../assets/me.webp";
 import { useDarkMode } from "../../hooks/useDarkMode";
 
 function SectionAboutMe() {

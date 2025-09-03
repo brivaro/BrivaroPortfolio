@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { Envelope, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
-import myImage from "../../assets/face.webp";
+import { EnvelopeIcon, GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react";
+//import myImage from "../../assets/face.webp";
+import myImage from "../../assets/me2.webp";
 //import DarkImg from "../../assets/heroimg-dark.webp";
 //import LightImg from "../../assets/heroimg-light.webp";
 import { useDarkMode } from "../../hooks/useDarkMode";
@@ -63,19 +64,19 @@ function SectionHero({ reference: ref }) {
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <span className="relative inline-flex overflow-hidden rounded-full p-[1px]">
           <Button href="https://www.linkedin.com/in/brian-valiente-rodenas/">
-            <LinkedinLogo size={24} weight="bold" />
+            <LinkedinLogoIcon size={24} weight="bold" />
             <span>Linkedin</span>
           </Button>
         </span>
         <span className="relative inline-flex overflow-hidden rounded-full p-[1px]">
           <Button href="https://github.com/brivaro">
-            <GithubLogo size={24} weight="bold" />
+            <GithubLogoIcon size={24} weight="bold" />
             <span>Github</span>
           </Button>
         </span>
         <span className="relative inline-flex overflow-hidden rounded-full p-[1px]">
           <Button href="mailto:brian.1613.bv@gmail.com?Subject=Contactar%20con%20Brian">
-            <Envelope size={24} weight="bold" />
+            <EnvelopeIcon size={24} weight="bold" />
             <span>Email</span>
           </Button>
         </span>

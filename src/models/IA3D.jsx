@@ -141,11 +141,11 @@ function CameraController({ activeCameraState, manualControlsEnabled, onOrbitSta
         camera.position.copy(orbitAnim.current.initialPos);
         orbitAnim.current.active = false;
         intervalTimer.current = 0;
-        onOrbitStop(); // << Notificamos al padre que la órbita ha terminado
+        onOrbitStop();
       } else {
         const progress = elapsedTime / orbitAnim.current.duration;
         var angle = progress * Math.PI * 2;
-        if (orbitAnim.current.initialPos.x < 0) angle = - angle; // Cambia la dirección si la cámara empieza a la izquierda
+        if (orbitAnim.current.initialPos.x < 0) angle = - angle;
         const offset = new THREE.Vector3().subVectors(orbitAnim.current.initialPos, orbitAnim.current.initialTarget);
         offset.applyAxisAngle(new THREE.Vector3(0, 1, 0), angle);
         camera.position.copy(orbitAnim.current.initialTarget).add(offset);
@@ -167,29 +167,34 @@ function CameraController({ activeCameraState, manualControlsEnabled, onOrbitSta
       orbitAnim.current.initialPos.copy(camera.position);
       orbitAnim.current.initialTarget.copy(controlsRef.current.target);
       intervalTimer.current = 0;
-      onOrbitStart(); // << Notificamos al padre que la órbita ha comenzado
+      onOrbitStart();
     }
   });
 
-  // (Efectos de depuración sin cambios)
-  useEffect(() => {
-    if (manualControlsEnabled && controlsRef.current) {
-        camera.position.copy(activeCameraState.pos);
-        controlsRef.current.target.copy(activeCameraState.target);
-    }
-  }, [manualControlsEnabled, activeCameraState, camera]);
 
+  // --- useEffect UNIFICADO ---
   useEffect(() => {
     const controls = controlsRef.current;
-    if (!controls) return;
+    if (!controls) return; // Si no hay controles, no hacemos nada.
+
+    // 1. Lógica del primer hook: posicionar la cámara.
+    if (manualControlsEnabled) {
+        camera.position.copy(activeCameraState.pos);
+        controls.target.copy(activeCameraState.target);
+    }
+
+    // 2. Lógica del segundo hook: añadir el listener para depuración.
     const logCameraAndTarget = () => {
       console.log(`pos: new THREE.Vector3(${camera.position.x.toFixed(2)}, ${camera.position.y.toFixed(2)}, ${camera.position.z.toFixed(2)}),`);
       console.log(`target: new THREE.Vector3(${controls.target.x.toFixed(2)}, ${controls.target.y.toFixed(2)}, ${controls.target.z.toFixed(2)})`);
     };
     controls.addEventListener("end", logCameraAndTarget);
-    return () => controls.removeEventListener("end", logCameraAndTarget);
-  }, [camera]);
 
+    // 3. Función de limpieza: se ejecuta cuando el componente se desmonta o las dependencias cambian.
+    return () => {
+      controls.removeEventListener("end", logCameraAndTarget);
+    };
+  }, [manualControlsEnabled, activeCameraState, camera]); // Combinamos las dependencias.
 
   return <OrbitControls ref={controlsRef} enabled={manualControlsEnabled} />;
 }
@@ -203,7 +208,7 @@ CameraController.propTypes = {
 
 // --- CONSTANTES DE CÁMARA ---
 const CAMERA_STATES = {
-    desktopLG: { pos: new THREE.Vector3(-0.63, -1.08, 4.64), target: new THREE.Vector3(4.61, 0.06, -0.61) },
+    desktopLG: { pos: new THREE.Vector3(-1.29, -1.43, 5.06), target: new THREE.Vector3(4.51, -0.17, -0.76) },
     desktopMD: { pos: new THREE.Vector3(-1.17, 0.19, 5.94), target: new THREE.Vector3(4.20, 0.15, -0.43) },
     tablet: { pos: new THREE.Vector3(0.70, 0.42, 6.54), target: new THREE.Vector3(-4.20, 0.73, -1.28) },
     mobileLG: { pos: new THREE.Vector3(1.71, -0.13, 8.71), target: new THREE.Vector3(-4.23, 2.38, -2.05) },
