@@ -1,7 +1,0 @@
-[build]
-  functions = "functions"              # Indica dónde están las funciones serverless
-
-[[redirects]]
-  from = "/api/*"                      # Indica que cualquier ruta que empiece por /api será redirigida a /.netlify/functions/algo
-  to = "/.netlify/functions/:splat"    # Redirige a la ruta de la función serverless (:splat es una variable que captura cualquier ruta, ej: /api/fetchNotion redirige a /.netlify/functions/fetchNotion)
-  status = 200                         # Indica que la redirección debe tener un estado 200

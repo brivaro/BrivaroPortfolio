@@ -215,6 +215,7 @@ function IA3D() {
   const ENABLE_MANUAL_DEBUG = false; 
   
   const [width] = useWindowSize();
+  const isMobile = width < 768; // Breakpoint para que el canvas no bloquee en moviles
   const modelPos = useMemo(() => new THREE.Vector3(0, 0, 0), []);
   
   // << CAMBIO CLAVE: El estado de la órbita vive aquí
@@ -228,13 +229,14 @@ function IA3D() {
     return CAMERA_STATES.mobileSM;
   }, [width]);
 
-  return (
-    <div className="absolute w-full h-1/5">
+  return ( //border-4 border-blue-500
+    <div className="absolute w-full h-1/5 top-20">
       <Canvas 
         camera={{ position: CAMERA_STATES.desktopLG.pos.toArray(), fov: 50, near: 0.1, far: 200 }}
+        style={isMobile ? { touchAction: "auto" } : {}}
       >
         <ambientLight color="blue" intensity={0.1} />
-        <ambientLight color="red" intensity={0.3} />
+        <ambientLight color="skyblue" intensity={0.3} />
         <directionalLight color="white" position={[0, 0, 5]} intensity={10}/>
         
         <group position={modelPos}>
@@ -251,7 +253,7 @@ function IA3D() {
         {/* Pasamos las funciones para actualizar el estado al controlador */}
         <CameraController 
           activeCameraState={activeCameraState} 
-          manualControlsEnabled={ENABLE_MANUAL_DEBUG}
+          manualControlsEnabled={ENABLE_MANUAL_DEBUG && !isMobile}
           onOrbitStart={() => setIsOrbiting(true)}
           onOrbitStop={() => setIsOrbiting(false)}
         />

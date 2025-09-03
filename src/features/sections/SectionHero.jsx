@@ -13,7 +13,7 @@ function SectionHero({ reference: ref }) {
   return (
     <section
       ref={ref}
-      className="mx-auto mt-24 flex flex-col items-center md:w-4/5"
+      className="mx-auto mt-20 flex flex-col items-center md:w-4/5"
     >
       <IA3D />
       
