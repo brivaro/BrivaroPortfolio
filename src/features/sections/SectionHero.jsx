@@ -39,7 +39,7 @@ function SectionHero({ reference: ref }) {
         <span className="font-medium text-teal8">automatizaciones</span>
         , modelos de
         {" "}
-        <span className="font-medium text-teal8">modelos de ML</span>
+        <span className="font-medium text-teal8">ML</span>
         {" "}
         y desarrollo de
         {" "}
