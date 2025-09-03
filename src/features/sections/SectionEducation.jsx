@@ -2,6 +2,7 @@
 import { Book } from "@phosphor-icons/react";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import { useEducation } from "../../services/useEducation";
+import FormattedDescription from "../ui/FormattedDescription";
 
 function SectionEducation() {
   const { isDarkMode } = useDarkMode();
@@ -44,11 +45,7 @@ function EducationItem({ title, institution, date, description }) {
         </span>
       </div>
       <div>
-        {description ? (
-          <p className="text-sm text-gray7 lg:text-base dark:text-gray4">
-            {description}
-          </p>
-        ) : null}
+        <FormattedDescription text={description} />
       </div>
     </li>
   );

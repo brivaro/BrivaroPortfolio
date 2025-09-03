@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { getFullTextFromRichText } from "./utils";
 
 export async function getEducation() {
   const data = await fetch(`/api/fetchNotion?id=${import.meta.env.VITE_DATABASE_EDUCATION_ID}&type=education`).then((res) => res.json());
@@ -8,9 +9,9 @@ export async function getEducation() {
     const { properties } = page;
     return {
       title: properties.title?.title?.[0]?.plain_text ?? "Sin título",
-      institution: properties.institution?.rich_text?.[0]?.plain_text ?? "",
-      date: properties.date?.rich_text?.[0]?.plain_text ?? "",
-      description: properties.description?.rich_text?.[0]?.plain_text ?? "",
+      institution: getFullTextFromRichText(properties.institution),
+      date: getFullTextFromRichText(properties.date),
+      description: getFullTextFromRichText(properties.description),
     };
   });
 }

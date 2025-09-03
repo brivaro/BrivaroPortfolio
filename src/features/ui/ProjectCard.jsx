@@ -4,7 +4,35 @@ import { GithubLogo, Link } from "@phosphor-icons/react";
 import Button from "./Button";
 import TechBadge from "./TechBadge";
 
+// Función auxiliar para parsear el string de tecnologías
+const parseTechnologies = (techString) => {
+    console.log("String recibido para parsear:", techString);
+
+    if (!techString || typeof techString !== 'string') {
+        console.log("El string es inválido o no existe.");
+        return [];
+    }
+    
+    const technologies = [];
+    const regex = /\(([^,]+?),\s*(<svg.*?<\/svg>)\)/gs; // Mantenemos la regex con flag 's'
+    let match;
+
+    while ((match = regex.exec(techString)) !== null) {
+        if (match[1] && match[2]) {
+            technologies.push({
+                name: match[1].trim(),
+                svg: match[2].trim(),
+            });
+        }
+    }
+
+    // AÑADE ESTE OTRO CONSOLE.LOG
+    console.log("Resultado del parseo:", technologies);
+    return technologies;
+};
 function ProjectCard({ project }) {
+  const technologies = parseTechnologies(project.technologies);
+
   return (
     <li className="mb-16 grid grid-cols-1 last:mb-0 lg:grid-cols-2 lg:gap-6">
       <picture className="aspect-video overflow-hidden rounded-xl transition-all duration-300 hover:shadow-lg dark:shadow-white ">
@@ -22,10 +50,15 @@ function ProjectCard({ project }) {
         </h3>
 
         {/* Badges de tecnologías */}
-        {Array.isArray(project.technologies) && project.technologies.length > 0 && (
+        {technologies.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
-            {project.technologies.map(([technology, icon], idx) => (
-              <TechBadge key={idx} technology={technology} icon={icon} />
+            {technologies.map((tech, idx) => (
+              <TechBadge 
+                key={idx} 
+                technology={tech.name} 
+                icon={tech.svg} 
+                index={idx} 
+              />
             ))}
           </div>
         )}

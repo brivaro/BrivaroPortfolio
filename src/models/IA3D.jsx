@@ -230,7 +230,7 @@ function IA3D() {
   }, [width]);
 
   return ( //border-4 border-blue-500
-    <div className="absolute w-full h-1/5 top-20">
+    <div className="absolute w-full h-1/6 top-20">
       <Canvas 
         camera={{ position: CAMERA_STATES.desktopLG.pos.toArray(), fov: 50, near: 0.1, far: 200 }}
         style={isMobile ? { touchAction: "auto" } : {}}

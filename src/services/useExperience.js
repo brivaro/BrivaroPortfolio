@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { getFullTextFromRichText } from "./utils";
 
 export async function getExperience() {
   const data = await fetch(`/api/fetchNotion?id=${import.meta.env.VITE_DATABASE_EXPERIENCE_ID}&type=experience`).then((res) => res.json());
@@ -8,10 +9,10 @@ export async function getExperience() {
     const { properties } = page;
     return {
       title: properties.title?.title?.[0]?.plain_text ?? "Sin título",
-      company: properties.company?.rich_text?.[0]?.plain_text ?? "",
-      date: properties.date?.rich_text?.[0]?.plain_text ?? "",
-      location: properties.location?.rich_text?.[0]?.plain_text ?? "",
-      description: properties.description?.rich_text?.[0]?.plain_text ?? "",
+      company: getFullTextFromRichText(properties.company),
+      date: getFullTextFromRichText(properties.date),
+      location: getFullTextFromRichText(properties.location),
+      description: getFullTextFromRichText(properties.description),
       isShown: properties.isShown?.checkbox ?? false,
     };
   });

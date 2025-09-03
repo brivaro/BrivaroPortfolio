@@ -2,6 +2,8 @@
 import { Briefcase } from "@phosphor-icons/react";
 import { useExperience } from "../../services/useExperience";
 import { useDarkMode } from "../../hooks/useDarkMode";
+import FormattedDescription from "../ui/FormattedDescription";
+
 
 function SectionExperience() {
   const { isDarkMode } = useDarkMode();
@@ -42,7 +44,7 @@ export default SectionExperience;
 
 function ExperienceItem({ title, company, date, location, description }) {
   return (
-    <li className="mb-6 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-0">
+    <li className="mb-20 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-0">
       <div className="relative">
         <div className="absolute -left-[25px] top-[6px] h-4 w-4 rounded-full bg-cyan2 lg:-left-[27px] lg:h-5 lg:w-5"></div>
         <h3 className="text-lg font-bold text-cyan lg:w-4/5 lg:text-2xl">{title}</h3>
@@ -51,9 +53,7 @@ function ExperienceItem({ title, company, date, location, description }) {
         <span className="block text-sm text-gray7 lg:text-base dark:text-gray5">{location}</span>
       </div>
       <div>
-        {description ? (
-          <p className="text-sm text-gray7 lg:text-base dark:text-gray4">{description}</p>
-        ) : null}
+        <FormattedDescription text={description} />
       </div>
     </li>
   );
