@@ -24,6 +24,12 @@ export default async function handler(req, res) {
     const response = await notion.databases.query({
       database_id,
       ...(filter ? { filter } : {}),
+      sorts: [
+        {
+          property: "order", // Cambia esto por el nombre de la propiedad por la que quieres ordenar
+          direction: "descending", // o "descending"
+        },
+      ],
     });
 
     return res.status(200).json(response);
