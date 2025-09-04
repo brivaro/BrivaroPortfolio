@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+
+import React, { Suspense, useEffect, useState } from "react";
 import { EnvelopeIcon, GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react";
 //import myImage from "../../assets/face.webp";
 import myImage from "../../assets/me2.webp";
@@ -6,17 +8,50 @@ import myImage from "../../assets/me2.webp";
 //import LightImg from "../../assets/heroimg-light.webp";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import Button from "../ui/Button";
-//import IA3D from "../../models/IA3D";
+
+// Hacemos la importación dinámica con React.lazy
+const IA3D = React.lazy(() => import("../../models/IA3D"));
 
 function SectionHero({ reference: ref }) {
   const { isDarkMode } = useDarkMode();
+  const [isHeroVisible, setIsHeroVisible] = useState(false);
+
+  // Observer para activar el modelo 3D solo cuando la sección es visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Actualizamos el estado basándonos en si el elemento está en el viewport
+        setIsHeroVisible(entry.isIntersecting);
+      },
+      {
+        // El umbral 0.1 significa que se activará cuando el 10% del hero sea visible
+        rootMargin: "0px",
+        threshold: 0.1, 
+      }
+    );
+
+    // Empezamos a observar el elemento referenciado (la <section>)
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    // Limpieza: dejamos de observar cuando el componente se desmonta
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [ref]); // Se ejecuta solo si la referencia cambia
 
   return ( //border-4 border-blue-40
     <section
       ref={ref}
-      className="mx-auto mt-20 flex flex-col items-center"
+      className="relative mx-auto mt-20 flex flex-col items-center"
     >
-      {/*<IA3D />*/}
+      {/* Esto asegura que solo se monte y renderice cuando la sección Hero es visible */}
+      <Suspense fallback={null}>
+        {isHeroVisible && <IA3D />}
+      </Suspense>
       
       <picture>
         <img
