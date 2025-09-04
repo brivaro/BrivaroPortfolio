@@ -10,7 +10,7 @@ const parseTechnologies = (techString) => {
     //console.log("String recibido para parsear:", techString);
 
     if (!techString || typeof techString !== 'string') {
-        console.log("El string es inválido o no existe.");
+        //console.log("El string es inválido o no existe.");
         return [];
     }
     
@@ -54,7 +54,7 @@ function ProjectCard({ project }) {
           <div className="mt-3 flex flex-wrap gap-2">
             {technologies.map((tech, idx) => (
               <TechBadge 
-                key={idx} 
+                key={tech.name} 
                 technology={tech.name} 
                 icon={tech.svg} 
                 index={idx} 
@@ -63,9 +63,9 @@ function ProjectCard({ project }) {
           </div>
         )}
 
-        <p className="mt-2 text-sm text-gray7 dark:text-gray4">
+        <div className="mt-2 text-sm text-gray7 dark:text-gray4">
           <FormattedDescription text={project.description} />
-        </p>
+        </div>
 
         <div className="mt-4 flex gap-2">
           {project.code !== '#' && (

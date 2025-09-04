@@ -2,7 +2,7 @@
 import { useMemo } from "react";
 import { BrainIcon } from "@phosphor-icons/react";
 import { useDarkMode } from "../../hooks/useDarkMode";
-import "./css/SectionSkills.css";
+import "./SectionSkills.css";
 
 const skillsData = [
   // ... (tu array de skillsData sigue igual)

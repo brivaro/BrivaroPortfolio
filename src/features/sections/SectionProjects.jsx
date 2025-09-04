@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Code } from "@phosphor-icons/react";
+import { CodeIcon } from "@phosphor-icons/react";
 import { useProjects } from "../../services/useProjects";
 import ProjectCard from "../ui/ProjectCard";
 import { useDarkMode } from "../../hooks/useDarkMode";
@@ -11,7 +11,7 @@ function SectionProjects() {
   return (
     <section id="proyectos" className="mt-8 pt-12">
       <div className="flex items-center gap-3">
-        <Code size={36} weight="bold" color={isDarkMode ? "white" : "black"} />
+        <CodeIcon size={36} weight="bold" color={isDarkMode ? "white" : "black"} />
         <h2 className="font-RedHat text-3xl font-bold text-gray9 sm:text-5xl dark:text-white">
           Proyectos
         </h2>
@@ -23,10 +23,10 @@ function SectionProjects() {
         {!isLoading && !error && (
           <>
             {projects.length === 0 && (
-              <li className="text-center text-gray7 dark:text-gray4">No hay proyectos visibles.</li>
+                <li key="no-projects" className="text-center text-gray7 dark:text-gray4">No hay proyectos visibles.</li>
             )}
-            {projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+            {projects.map((project, idx) => (
+              <ProjectCard key={project.id || `${project.name}-${idx}`} project={project} />
             ))}
           </>
         )}

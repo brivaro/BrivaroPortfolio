@@ -5,6 +5,9 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, useAnimations, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 
+// --- CONSTANTE MOVIDA FUERA DEL COMPONENTE ---
+const ENABLE_MANUAL_DEBUG = false; 
+
 // --- HOOK PERSONALIZADO PARA DETECTAR EL TAMAÑO DE LA VENTANA ---
 function useWindowSize() {
   const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
@@ -18,19 +21,25 @@ function useWindowSize() {
   return size;
 }
 
-function Model({ scaleMultiplier = 1, yOffset = 0, isOrbiting }) {
+function Model({ scaleMultiplier = 1, yOffset = 0, isOrbiting, isVisible }) {
   const gltf = useGLTF("/ia.glb");
   const modelRef = useRef();
-  
   const { actions, mixer } = useAnimations(gltf.animations, modelRef);
-  //console.log(gltf.animations);
+
+  useEffect(() => {
+    if (!mixer) return;
+    // La animación se pausa (timeScale = 0) o reanuda (timeScale = 1) según el estado "activo"
+    mixer.timeScale = isVisible ? 1 : 0;
+  }, [isVisible, mixer]);
 
   useFrame((state) => {
-      if (modelRef.current) {
-        modelRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.15 - yOffset;
-      }
+    // El movimiento del modelo también se detiene si no es "activo"
+    if (modelRef.current && isVisible) {
+      modelRef.current.position.y = Math.sin(state.clock.elapsedTime) * 0.15 - yOffset;
+    }
   });
-  
+
+  // ... (el resto del componente Model no necesita cambios)
   useEffect(() => {
     if (!gltf?.scene || !modelRef.current) return;
     gltf.scene.traverse((child) => {
@@ -83,16 +92,14 @@ function Model({ scaleMultiplier = 1, yOffset = 0, isOrbiting }) {
 
   useEffect(() => {
     const walkAction = actions?.["Character|WALK"];
-    const audioAction = actions?.["Character|Audio_1"]; // Animación a la que volver
+    const audioAction = actions?.["Character|Audio_1"];
 
     if (!walkAction || !audioAction) return;
 
     if (isOrbiting) {
-      // Comienza la órbita: hacer un fundido a la animación de caminar
       audioAction.crossFadeTo(walkAction, 0.25);
       walkAction.reset().setLoop(THREE.LoopRepeat, Infinity).play();
     } else {
-      // Termina la órbita: hacer un fundido de vuelta a la animación de audio/idle
       walkAction.crossFadeTo(audioAction, 0.25);
       audioAction.reset().setLoop(THREE.LoopRepeat, Infinity).play();
     }
@@ -111,29 +118,36 @@ function Model({ scaleMultiplier = 1, yOffset = 0, isOrbiting }) {
 Model.propTypes = {
   scaleMultiplier: PropTypes.number,
   yOffset: PropTypes.number,
-  isOrbiting: PropTypes.bool.isRequired, // Nuevo prop
+  isOrbiting: PropTypes.bool.isRequired,
+  isVisible: PropTypes.bool.isRequired,
 };
 
-// --- COMPONENTE PARA CONTROLAR LA CÁMARA (MODIFICADO) ---
-function CameraController({ activeCameraState, manualControlsEnabled, onOrbitStart, onOrbitStop }) {
+function CameraController({ activeCameraState, manualControlsEnabled, onOrbitStart, onOrbitStop, isVisible }) {
   const { camera, clock } = useThree();
   const controlsRef = useRef();
-
+  const [isInitialized, setIsInitialized] = useState(false);
   const orbitAnim = useRef({
     active: false,
     startTime: 0,
-    duration: 4, // Duración de la órbita en segundos
+    duration: 4,
     initialPos: new THREE.Vector3(),
-    initialTarget: new THREE.Vector3(),
+    initialTarget: new THREE.Vector3()
   });
   const intervalTimer = useRef(0);
 
   useFrame((state, delta) => {
+    // En modo debug, este `isVisible` será `true`, permitiendo que el bucle se ejecute.
+    if (!isVisible) return;
+    
+    // Si los controles manuales están activados, solo actualizamos los controles y salimos.
     if (manualControlsEnabled) {
       controlsRef.current.update();
       return;
     }
 
+    if (!isInitialized) return;
+
+    // ... (el resto de la lógica de useFrame se mantiene igual)
     if (orbitAnim.current.active) {
       const elapsedTime = clock.getElapsedTime() - orbitAnim.current.startTime;
 
@@ -171,30 +185,25 @@ function CameraController({ activeCameraState, manualControlsEnabled, onOrbitSta
     }
   });
 
-
-  // --- useEffect UNIFICADO ---
   useEffect(() => {
     const controls = controlsRef.current;
-    if (!controls) return; // Si no hay controles, no hacemos nada.
+    if (!controls) return;
 
-    // 1. Lógica del primer hook: posicionar la cámara.
-    if (manualControlsEnabled) {
-        camera.position.copy(activeCameraState.pos);
-        controls.target.copy(activeCameraState.target);
-    }
+    camera.position.copy(activeCameraState.pos);
+    controls.target.copy(activeCameraState.target);
+    controls.update();
+    setIsInitialized(true);
 
-    // 2. Lógica del segundo hook: añadir el listener para depuración.
     const logCameraAndTarget = () => {
       console.log(`pos: new THREE.Vector3(${camera.position.x.toFixed(2)}, ${camera.position.y.toFixed(2)}, ${camera.position.z.toFixed(2)}),`);
       console.log(`target: new THREE.Vector3(${controls.target.x.toFixed(2)}, ${controls.target.y.toFixed(2)}, ${controls.target.z.toFixed(2)})`);
     };
     controls.addEventListener("end", logCameraAndTarget);
 
-    // 3. Función de limpieza: se ejecuta cuando el componente se desmonta o las dependencias cambian.
     return () => {
       controls.removeEventListener("end", logCameraAndTarget);
     };
-  }, [manualControlsEnabled, activeCameraState, camera]); // Combinamos las dependencias.
+  }, [activeCameraState, camera]);
 
   return <OrbitControls ref={controlsRef} enabled={manualControlsEnabled} />;
 }
@@ -204,9 +213,9 @@ CameraController.propTypes = {
     manualControlsEnabled: PropTypes.bool.isRequired,
     onOrbitStart: PropTypes.func.isRequired,
     onOrbitStop: PropTypes.func.isRequired,
+    isVisible: PropTypes.bool.isRequired,
 };
 
-// --- CONSTANTES DE CÁMARA ---
 const CAMERA_STATES = {
     desktopLG: { pos: new THREE.Vector3(-1.29, -1.43, 5.06), target: new THREE.Vector3(4.51, -0.17, -0.76) },
     desktopMD: { pos: new THREE.Vector3(-1.17, 0.19, 5.94), target: new THREE.Vector3(4.20, 0.15, -0.43) },
@@ -215,16 +224,18 @@ const CAMERA_STATES = {
     mobileSM: { pos: new THREE.Vector3(0.83, 0.76, 9.21), target: new THREE.Vector3(-2.18, 1.83, -2.28) },
 };
 
-// --- COMPONENTE PRINCIPAL (MODIFICADO) ---
-function IA3D() {
-  const ENABLE_MANUAL_DEBUG = false; 
-  
+function IA3D({ isVisible }) { 
   const [width] = useWindowSize();
-  const isMobile = width < 768; // Breakpoint para que el canvas no bloquee en moviles
+  const isMobile = width < 768;
   const modelPos = useMemo(() => new THREE.Vector3(0, 0, 0), []);
-  
-  // << CAMBIO CLAVE: El estado de la órbita vive aquí
   const [isOrbiting, setIsOrbiting] = useState(false);
+
+  const manualControlsEnabled = useMemo(() => ENABLE_MANUAL_DEBUG && !isMobile, [isMobile]);
+  
+  // --- SOLUCIÓN: Creamos una variable "isActive" ---
+  // El componente se considerará "activo" si es visible O si el modo debug está habilitado.
+  // Esto asegura que en modo debug, el componente siempre esté visible y operativo.
+  const isActive = useMemo(() => isVisible || ENABLE_MANUAL_DEBUG, [isVisible]);
 
   const activeCameraState = useMemo(() => {
     if (width > 1280) return CAMERA_STATES.desktopLG;
@@ -234,11 +245,22 @@ function IA3D() {
     return CAMERA_STATES.mobileSM;
   }, [width]);
 
-  return ( //border-4 border-blue-500
-    <div className="absolute top-0 h-[calc(100%+18rem)] w-screen left-1/2 -translate-x-1/2">
+  return (
+    <div className="absolute top-0 h-[calc(100%+18rem)] w-[99vw] left-1/2 -translate-x-1/2"
+        // --- SOLUCIÓN: Usamos "isActive" para controlar los estilos ---
+        // En modo debug, el canvas siempre será visible e interactivo.
+        // En modo normal, dependerá de la optimización del Intersection Observer.
+        style={{ 
+            visibility: isActive ? 'visible' : 'hidden',
+            pointerEvents: isActive ? 'auto' : 'none',
+          }}
+    >
       <Canvas 
         camera={{ position: CAMERA_STATES.desktopLG.pos.toArray(), fov: 50, near: 0.1, far: 200 }}
-        style={isMobile ? { touchAction: "auto" } : {}}
+        // Lógica mejorada para el scroll en móvil:
+        // En modo debug, se deshabilita el scroll para controlar la cámara (`none`).
+        // En modo normal, se permite el scroll (`auto`).
+        style={isMobile ? { touchAction: manualControlsEnabled ? 'none' : 'auto' } : {}}
       >
         <ambientLight color="blue" intensity={0.1} />
         <ambientLight color="skyblue" intensity={0.3} />
@@ -249,20 +271,26 @@ function IA3D() {
             <Model 
               scaleMultiplier={0.5} 
               yOffset={1.6} 
-              isOrbiting={isOrbiting} 
+              isOrbiting={isOrbiting}
+              isVisible={isActive}
             />
           </Suspense>
         </group>
 
         <CameraController 
           activeCameraState={activeCameraState} 
-          manualControlsEnabled={ENABLE_MANUAL_DEBUG && !isMobile}
+          manualControlsEnabled={manualControlsEnabled}
           onOrbitStart={() => setIsOrbiting(true)}
           onOrbitStop={() => setIsOrbiting(false)}
+          isVisible={isActive}
         />
       </Canvas>
     </div>
   );
 }
+
+IA3D.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
+};
 
 export default IA3D;

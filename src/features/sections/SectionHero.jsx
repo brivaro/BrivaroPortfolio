@@ -18,30 +18,31 @@ function SectionHero({ reference: ref }) {
 
   // Observer para activar el modelo 3D solo cuando la sección es visible
   useEffect(() => {
+    const element = ref.current;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Actualizamos el estado basándonos en si el elemento está en el viewport
         setIsHeroVisible(entry.isIntersecting);
       },
       {
-        // El umbral 0.1 significa que se activará cuando el 10% del hero sea visible
         rootMargin: "0px",
         threshold: 0.1, 
       }
     );
 
-    // Empezamos a observar el elemento referenciado (la <section>)
-    if (ref.current) {
-      observer.observe(ref.current);
+    // Usamos la variable local para observar el elemento.
+    if (element) {
+      observer.observe(element);
     }
 
-    // Limpieza: dejamos de observar cuando el componente se desmonta
+    // Usamos LA MISMA variable local en la limpieza.
+    // Esto garantiza que dejamos de observar el mismo elemento que empezamos a observar.
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (element) {
+        observer.unobserve(element);
       }
     };
-  }, [ref]); // Se ejecuta solo si la referencia cambia
+  }, [ref]); // La dependencia sigue siendo ref.
 
   return ( //border-4 border-blue-40
     <section
@@ -50,7 +51,7 @@ function SectionHero({ reference: ref }) {
     >
       {/* Esto asegura que solo se monte y renderice cuando la sección Hero es visible */}
       <Suspense fallback={null}>
-        {isHeroVisible && <IA3D />}
+        <IA3D isVisible={isHeroVisible} />
       </Suspense>
       
       <picture>
