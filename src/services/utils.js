@@ -6,4 +6,12 @@ function getFullTextFromRichText(property) {
   return property.rich_text.map((t) => t.plain_text).join("");
 }
 
-export { getFullTextFromRichText };
+// Función para los title
+function getFullTextFromTitle(property) {
+  if (!property || !property.title) {
+    return "";
+  }
+  return property.title.map((t) => t.plain_text).join("");
+}
+
+export { getFullTextFromRichText, getFullTextFromTitle };

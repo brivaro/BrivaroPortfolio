@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getFullTextFromRichText } from "./utils";
+import { getFullTextFromRichText, getFullTextFromTitle } from "./utils";
 
 async function fetchProjects() {
   const data = await fetch(`/api/fetchNotion?id=${import.meta.env.VITE_DATABASE_PROJECTS_ID}&type=projects`).then((res) => res.json());
@@ -9,10 +9,9 @@ async function fetchProjects() {
   const results = data.results ?? [];
   return results.map((page) => {
     const { properties } = page;
-    const { slug, title, img, description, demo, code, technologies, isShown } = properties;
+    const { title, img, description, demo, code, technologies, isShown } = properties;
     return {
-      id: getFullTextFromRichText(slug) || page.id,
-      title: title?.title?.[0]?.plain_text ?? "Sin título",
+      title: getFullTextFromTitle(title),
       img:
         img?.files?.[0]?.file?.url ??
         img?.files?.[0]?.external?.url ??

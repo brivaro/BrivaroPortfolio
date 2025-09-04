@@ -6,7 +6,7 @@ import myImage from "../../assets/me2.webp";
 //import LightImg from "../../assets/heroimg-light.webp";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import Button from "../ui/Button";
-import IA3D from "../../models/IA3D";
+//import IA3D from "../../models/IA3D";
 
 function SectionHero({ reference: ref }) {
   const { isDarkMode } = useDarkMode();
@@ -16,7 +16,7 @@ function SectionHero({ reference: ref }) {
       ref={ref}
       className="mx-auto mt-20 flex flex-col items-center"
     >
-      <IA3D />
+      {/*<IA3D />*/}
       
       <picture>
         <img

@@ -84,6 +84,12 @@ function App() {
               >
                 Experiencia
               </a>
+              <a
+                className="font-bold transition-all duration-300 hover:underline"
+                href="mailto:brian.1613.bv@gmail.com?Subject=Contactar%20con%20Brian"
+              >
+                Contacto
+              </a>
             </div>
           </footer>
         </div>

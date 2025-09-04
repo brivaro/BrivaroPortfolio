@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 
-import { GithubLogo, Link } from "@phosphor-icons/react";
+import { GithubLogoIcon, LinkIcon } from "@phosphor-icons/react";
 import Button from "./Button";
 import TechBadge from "./TechBadge";
+import FormattedDescription from "./FormattedDescription";
 
 // Función auxiliar para parsear el string de tecnologías
 const parseTechnologies = (techString) => {
@@ -37,7 +38,7 @@ function ProjectCard({ project }) {
       <picture className="aspect-video overflow-hidden rounded-xl transition-all duration-300 hover:shadow-lg dark:shadow-white ">
         {project.img ? (
           <img
-            className="w-full h-full object-cover rounded-xl transition-all duration-300 ease-in-out hover:scale-105"
+            className="w-full h-full object-cover rounded-xl transition-all duration-300 ease-in-out hover:scale-125"
             src={project.img}
             alt={project.title || "Imagen del proyecto"}
           />
@@ -63,19 +64,22 @@ function ProjectCard({ project }) {
         )}
 
         <p className="mt-2 text-sm text-gray7 dark:text-gray4">
-          {project.description}
+          <FormattedDescription text={project.description} />
         </p>
 
         <div className="mt-4 flex gap-2">
-          <Button href={project.code}>
-            <GithubLogo size={24} weight="bold" />
-            <span>Código</span>
-          </Button>
-
-          <Button href={project.demo}>
-            <Link size={24} weight="bold" />
-            <span>Demo</span>
-          </Button>
+          {project.code !== '#' && (
+            <Button href={project.code}>
+              <GithubLogoIcon size={24} weight="bold" />
+              <span>Código</span>
+            </Button>
+          )}
+          {project.demo !== '#' && (
+            <Button href={project.demo}>
+              <LinkIcon size={24} weight="bold" />
+              <span>Demo</span>
+            </Button>
+          )}
         </div>
       </div>
     </li>

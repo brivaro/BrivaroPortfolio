@@ -11,7 +11,7 @@
 ];*/
 
 const colors = [
-  "bg-blue-600",
+  "bg-sky-600",
   "bg-slate-600",
   "bg-yellow-700",
   "bg-fuchsia-700",
@@ -26,7 +26,7 @@ const colors = [
   "bg-orange-600",
   "bg-gray-600",
   "bg-purple-700",
-  "bg-sky-700",
+  "bg-blue-700",
 ];
 
 function TechBadge({ technology, icon, index }) {
