@@ -1,12 +1,9 @@
-/* SectionSkills.css */
-
 /* 1. Define la animación de scroll una sola vez */
 @keyframes scroll {
   from {
     transform: translateX(0);
   }
   to {
-    /* Se desplaza la mitad del ancho total, que es la longitud de la lista de iconos original */
     transform: translateX(-50%);
   }
 }
@@ -15,26 +12,40 @@
 .carousel-container {
   width: 100%;
   overflow: hidden;
-  /* Utilizo 'mask-image' para crear un difuminado sutil en los bordes que funciona sobre cualquier color de fondo */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
 
 /* 3. Estilos para la pista que contiene los iconos */
 .carousel-track {
   display: flex;
-  width: fit-content; /* El ancho se ajusta al contenido (los iconos) */
+  width: fit-content;
   gap: 3rem;
   padding: 1rem 0;
-
+  
   /* 
-    Aplica la animación. La duración (--animation-duration) se pasará como una
-    variable CSS desde el componente de React, ya que es un valor dinámico.
+    APLICACIÓN MÁS ROBUSTA DE LA ANIMACIÓN.
+    Al poner la animación aquí y no dentro de la media query, nos aseguramos
+    de que siempre se intente aplicar.
   */
-  animation: scroll var(--animation-duration) linear infinite;
+  animation-name: scroll;
+  animation-duration: var(--animation-duration);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  /* Por defecto, la animación estará pausada */
+  animation-play-state: paused;
 }
 
-/* 4. Estilos para las imágenes dentro del carrusel */
+/* 4. Activamos la animación solo si el usuario NO ha solicitado movimiento reducido */
+@media (prefers-reduced-motion: no-preference) {
+  .carousel-track {
+    /* Aquí solo cambiamos el estado para que se reproduzca */
+    animation-play-state: running;
+  }
+}
+
+/* 5. Estilos para las imágenes dentro del carrusel */
 .carousel-track img {
-  /* Evita que los logos se encojan o estiren */
   flex: 0 0 auto;
 }

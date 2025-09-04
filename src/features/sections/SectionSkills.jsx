@@ -50,7 +50,7 @@ const skillsData = [
   { category: "Game / 3D", icons: [
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/godot/godot-original.svg",
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg",
-    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg",
+    "https://skillicons.dev/icons?i=threejs",
     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg"
   ] },
   { category: "Databases", icons: [

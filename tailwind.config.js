@@ -21,6 +21,15 @@ export default {
       gridTemplateColumns: {
         "aboutme-layout": "1fr 300px",
       },
+      keyframes: {
+        scroll: {
+          'from': { transform: 'translateX(0)' },
+          'to': { transform: 'translateX(-50%)' },
+        }
+      },
+      animation: {
+        scroll: 'scroll var(--animation-duration) linear infinite',
+      }
     },
   },
   plugins: [],
