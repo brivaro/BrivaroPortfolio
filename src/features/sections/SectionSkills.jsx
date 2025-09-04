@@ -4,7 +4,7 @@ import { BrainIcon } from "@phosphor-icons/react";
 import { useDarkMode } from "../../hooks/useDarkMode";
 
 // 1. Importa el fichero CSS que acabamos de crear
-import "./SectionSkills.css";
+import "../css/SectionSkills.css";
 
 const skillsData = [
   // ... (tu array de skillsData sigue igual)
