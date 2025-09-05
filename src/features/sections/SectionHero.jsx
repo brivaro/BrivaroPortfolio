@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 
-import { useEffect, useState } from "react";
 //import React, { Suspense, useEffect, useState } from "react";
 import { EnvelopeIcon, GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react";
 //import myImage from "../../assets/face.webp";
@@ -11,7 +10,7 @@ import { useDarkMode } from "../../hooks/useDarkMode";
 import Button from "../ui/Button";
 
 // Hacemos la importación dinámica con React.lazy
-const IA3D = React.lazy(() => import("../../models/IA3D"));
+//const IA3D = React.lazy(() => import("../../models/IA3D"));
 
 function SectionHero({ reference: ref }) {
   const { isDarkMode } = useDarkMode();
