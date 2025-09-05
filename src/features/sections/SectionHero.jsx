@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";  // import React, { Suspense, useEffect, useState } from "react"; 
 import { EnvelopeIcon, GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react";
 //import myImage from "../../assets/face.webp";
 import myImage from "../../assets/me2.webp";
@@ -10,11 +10,11 @@ import { useDarkMode } from "../../hooks/useDarkMode";
 import Button from "../ui/Button";
 
 // Hacemos la importación dinámica con React.lazy
-const IA3D = React.lazy(() => import("../../models/IA3D"));
+//const IA3D = React.lazy(() => import("../../models/IA3D"));
 
 function SectionHero({ reference: ref }) {
   const { isDarkMode } = useDarkMode();
-  const [isHeroVisible, setIsHeroVisible] = useState(false);
+  const [_, setIsHeroVisible] = useState(false);
 
   // Observer para activar el modelo 3D solo cuando la sección es visible
   useEffect(() => {
