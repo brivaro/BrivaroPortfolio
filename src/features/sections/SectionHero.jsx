@@ -49,10 +49,11 @@ function SectionHero({ reference: ref }) {
       ref={ref}
       className="relative mx-auto mt-20 flex flex-col items-center"
     >
-      {/* Esto asegura que solo se monte y renderice cuando la sección Hero es visible */}
+      {/* 
       <Suspense fallback={null}>
         <IA3D isVisible={isHeroVisible} />
       </Suspense>
+       */}
       
       <picture>
         <img
