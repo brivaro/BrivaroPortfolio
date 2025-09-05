@@ -68,18 +68,11 @@ function SectionHero({ reference: ref }) {
       <p className="mt-4 text-center text-lg sm:w-2/3 sm:text-2xl dark:text-gray4">
         Ingeniero Informático especializado en{" "}
         <span className="font-medium text-green8">Inteligencia Artificial. </span>{" "}
-        <span className="font-medium text-blue-800 dark:text-blue-400">+2 años de experiencia</span>
-        {" "}
-        en
-        {" "}
-        <span className="font-medium text-teal8">automatizaciones</span>
-        , modelos de
-        {" "}
-        <span className="font-medium text-teal8">ML</span>
-        {" "}
-        y desarrollo de
-        {" "}
-        <span className="font-medium text-teal8">soluciones estratégicas.</span>
+        <span className="font-medium text-blue-800 dark:text-blue-400">+2 años de experiencia</span>{" "}en{" "}
+        <span className="font-medium text-teal8">automatizaciones</span>, {" "}
+        <span className="font-medium text-purple-700 dark:text-purple-400">modelos de ML</span>, {" "}
+        <span className="font-medium text-orange-600 dark:text-orange-400">IA Generativa</span>{" "}y desarrollo de{" "}
+        <span className="font-medium text-yellow-600 dark:text-yellow-300">soluciones estratégicas.</span>
       </p>
 
       <a
