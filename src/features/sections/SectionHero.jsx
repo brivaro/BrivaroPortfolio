@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
-import React, { useEffect, useState } from "react";  // import React, { Suspense, useEffect, useState } from "react"; 
+import { useEffect, useState } from "react";
+//import React, { Suspense, useEffect, useState } from "react";
 import { EnvelopeIcon, GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react";
 //import myImage from "../../assets/face.webp";
 import myImage from "../../assets/me2.webp";
@@ -10,11 +11,12 @@ import { useDarkMode } from "../../hooks/useDarkMode";
 import Button from "../ui/Button";
 
 // Hacemos la importación dinámica con React.lazy
-//const IA3D = React.lazy(() => import("../../models/IA3D"));
+const IA3D = React.lazy(() => import("../../models/IA3D"));
 
 function SectionHero({ reference: ref }) {
   const { isDarkMode } = useDarkMode();
-  const [_, setIsHeroVisible] = useState(false);
+  /*
+  const [isHeroVisible, setIsHeroVisible] = useState(false);
 
   // Observer para activar el modelo 3D solo cuando la sección es visible
   useEffect(() => {
@@ -30,19 +32,17 @@ function SectionHero({ reference: ref }) {
       }
     );
 
-    // Usamos la variable local para observar el elemento.
     if (element) {
       observer.observe(element);
     }
 
-    // Usamos LA MISMA variable local en la limpieza.
-    // Esto garantiza que dejamos de observar el mismo elemento que empezamos a observar.
     return () => {
       if (element) {
         observer.unobserve(element);
       }
     };
-  }, [ref]); // La dependencia sigue siendo ref.
+    */
+  //}, [ref]); // La dependencia sigue siendo ref.
 
   return ( //border-4 border-blue-40
     <section
