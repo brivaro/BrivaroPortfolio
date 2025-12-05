@@ -70,23 +70,28 @@ function ProjectCard({ project }) {
           <FormattedDescription text={project.description} />
         </div>
 
-        {/* --- BOTONES --- */}
+        {/* --- BOTONES ARREGLADOS --- */}
         <div className="mt-8 flex flex-wrap gap-4">
           
-          {/* BOTÓN CÓDIGO (Estilo Outline / Fantasma) */}
+          {/* 1. BOTÓN CÓDIGO (Estilo Outline/Borde) */}
           {project.code !== '#' && (
             <a 
               href={project.code}
               target="_blank"
               rel="noopener noreferrer"
               className="
-                flex items-center gap-2 rounded-full px-6 py-2.5 font-bold transition-all duration-300 border-2
+                flex items-center gap-2 rounded-full px-6 py-2.5 font-bold transition-all duration-300 
                 
-                /* LIGHT: Borde negro, Texto negro */
-                border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white 
+                /* ESTRUCTURA: Borde sólido de 2px */
+                border-2
                 
-                /* DARK: Borde blanco, Texto blanco */
-                dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900
+                /* MODO CLARO: Borde Negro, Texto Negro, Fondo Transparente */
+                border-gray-900 text-gray-900 
+                hover:bg-gray-900 hover:text-white 
+                
+                /* MODO OSCURO: Borde Blanco, Texto Blanco, Fondo Transparente */
+                dark:border-white dark:text-white 
+                dark:hover:bg-white dark:hover:text-gray-900
                 
                 hover:-translate-y-1 hover:shadow-lg
               "
@@ -96,20 +101,25 @@ function ProjectCard({ project }) {
             </a>
           )}
           
-          {/* BOTÓN DEMO (Estilo Sólido / Relleno) */}
+          {/* 2. BOTÓN DEMO (Estilo Sólido/Relleno) */}
           {project.demo !== '#' && (
             <a 
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
               className="
-                flex items-center gap-2 rounded-full px-6 py-2.5 font-bold transition-all duration-300 border-2
+                flex items-center gap-2 rounded-full px-6 py-2.5 font-bold transition-all duration-300
                 
-                /* ESTILO SÓLIDO: Fondo de color, Texto Blanco SIEMPRE */
-                border-transparent 
-                bg-gradient-to-r from-cyan-600 to-blue-600 text-white
+                /* ESTRUCTURA: Sin borde, Fondo de Color Sólido */
+                border-none
                 
-                /* HOVER: Más brillo y sombra de color */
+                /* COLOR: Gradiente Azul/Cyan SIEMPRE (Ignora modo claro/oscuro) */
+                bg-gradient-to-r from-cyan-600 to-blue-600 
+                
+                /* TEXTO: Blanco SIEMPRE */
+                text-white
+                
+                /* HOVER */
                 hover:from-cyan-500 hover:to-blue-500
                 hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-500/25
               "
