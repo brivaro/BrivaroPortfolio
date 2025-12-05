@@ -29,13 +29,11 @@ function ProjectCard({ project }) {
       
       {/* --- COLUMNA IMAGEN --- */}
       <div className="relative w-full">
-        {/* Glow de fondo */}
         <div className="absolute -inset-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 opacity-20 blur-xl transition-opacity duration-500 group-hover:opacity-40 dark:opacity-30"></div>
         
         <picture className="relative block overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg transition-all dark:border-white/10 dark:bg-gray-900 dark:shadow-none">
           {project.img ? (
             <img
-              // Hover solo al pasar por la foto
               className="aspect-video w-full object-cover transition-transform duration-700 ease-out hover:scale-110"
               src={project.img}
               alt={project.title}
@@ -72,10 +70,10 @@ function ProjectCard({ project }) {
           <FormattedDescription text={project.description} />
         </div>
 
-        {/* --- BOTONES DE ALTO CONTRASTE --- */}
+        {/* --- BOTONES --- */}
         <div className="mt-8 flex flex-wrap gap-4">
           
-          {/* BOTÓN CÓDIGO (Monocromo) */}
+          {/* BOTÓN CÓDIGO (Estilo Outline / Fantasma) */}
           {project.code !== '#' && (
             <a 
               href={project.code}
@@ -84,11 +82,13 @@ function ProjectCard({ project }) {
               className="
                 flex items-center gap-2 rounded-full px-6 py-2.5 font-bold transition-all duration-300 border-2
                 
-                /* LIGHT MODE: Borde negro, Texto negro */
-                border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white hover:-translate-y-1 hover:shadow-lg
+                /* LIGHT: Borde negro, Texto negro */
+                border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white 
                 
-                /* DARK MODE: Borde blanco, Texto blanco */
+                /* DARK: Borde blanco, Texto blanco */
                 dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900
+                
+                hover:-translate-y-1 hover:shadow-lg
               "
             >
               <GithubLogoIcon size={20} weight="bold" />
@@ -96,7 +96,7 @@ function ProjectCard({ project }) {
             </a>
           )}
           
-          {/* BOTÓN DEMO (Color Acento) */}
+          {/* BOTÓN DEMO (Estilo Sólido / Relleno) */}
           {project.demo !== '#' && (
             <a 
               href={project.demo}
@@ -105,11 +105,13 @@ function ProjectCard({ project }) {
               className="
                 flex items-center gap-2 rounded-full px-6 py-2.5 font-bold transition-all duration-300 border-2
                 
-                /* LIGHT MODE: Borde Azul Oscuro, Texto Azul Oscuro -> Se ve perfecto en blanco */
-                border-cyan-700 text-cyan-700 hover:bg-cyan-700 hover:text-white hover:-translate-y-1 hover:shadow-lg
+                /* ESTILO SÓLIDO: Fondo de color, Texto Blanco SIEMPRE */
+                border-transparent 
+                bg-gradient-to-r from-cyan-600 to-blue-600 text-white
                 
-                /* DARK MODE: Borde Cyan Brillante, Texto Cyan Brillante -> Resalta con borde en negro */
-                dark:border-cyan-400 dark:text-cyan-400 dark:hover:bg-cyan-400 dark:hover:text-gray-900
+                /* HOVER: Más brillo y sombra de color */
+                hover:from-cyan-500 hover:to-blue-500
+                hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-500/25
               "
             >
               <LinkIcon size={20} weight="bold" />
