@@ -1,20 +1,16 @@
 /* eslint-disable react/prop-types */
-
-//import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react"; // Reactiva estos imports
 import { EnvelopeIcon, GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react";
-//import myImage from "../../assets/face.webp";
-import myImage from "../../assets/me2.webp";
-//import DarkImg from "../../assets/heroimg-dark.webp";
-//import LightImg from "../../assets/heroimg-light.webp";
+import myImageDark from "../../assets/me-dark.webp";
+import myImageLight from "../../assets/me-light.webp";
 import { useDarkMode } from "../../hooks/useDarkMode";
 import Button from "../ui/Button";
 
-// Hacemos la importación dinámica con React.lazy
-//const IA3D = React.lazy(() => import("../../models/IA3D"));
+// Importación dinámica (Lazy Load)
+const IA3D = React.lazy(() => import("../../models/IA3D"));
 
 function SectionHero({ reference: ref }) {
   const { isDarkMode } = useDarkMode();
-  /*
   const [isHeroVisible, setIsHeroVisible] = useState(false);
 
   // Observer para activar el modelo 3D solo cuando la sección es visible
@@ -23,11 +19,14 @@ function SectionHero({ reference: ref }) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsHeroVisible(entry.isIntersecting);
+        // Solo actualizamos el estado si cambia para evitar re-renders innecesarios
+        if (entry.isIntersecting !== isHeroVisible) {
+             setIsHeroVisible(entry.isIntersecting);
+        }
       },
       {
-        rootMargin: "0px",
-        threshold: 0.1, 
+        rootMargin: "100px", // Un margen para que empiece a cargar un poco antes
+        threshold: 0, 
       }
     );
 
@@ -37,30 +36,31 @@ function SectionHero({ reference: ref }) {
 
     return () => {
       if (element) {
-        observer.unobserve(element);
+        observer.disconnect();
       }
     };
-    */
-  //}, [ref]); // La dependencia sigue siendo ref.
+  }, [ref, isHeroVisible]);
 
-  return ( //border-4 border-blue-40
+  return (
     <section
       ref={ref}
       className="relative mx-auto mt-20 flex flex-col items-center"
     >
-      {/* 
-      <Suspense fallback={null}>
+      {/* El Suspense evita que la web se congele mientras carga el modelo */}
+      <Suspense fallback={<div className="h-[500px] w-full" />}>
+        {/* Pasamos isVisible al componente para que sepa cuándo detenerse */}
         <IA3D isVisible={isHeroVisible} />
       </Suspense>
-       */}
       
       <picture>
         <img
           className=" aspect-square w-36 rounded-full"
-          src={isDarkMode ? myImage : myImage}
+          src={isDarkMode ? myImageDark : myImageLight}
           alt="Brian Valiente Rodenas Icon"
         />
       </picture>
+      
+      {/* ... RESTO DEL CONTENIDO (Texto, botones, etc) IGUAL ... */}
       <h1 className="mt-3 font-RedHat text-4xl font-bold text-gray9 sm:text-6xl dark:text-white text-center">
         Hola, soy Brian
       </h1>
@@ -109,17 +109,9 @@ function SectionHero({ reference: ref }) {
             <span>Email</span>
           </Button>
         </span>
-        
       </div>
     </section>
   );
 }
-/*
-<span className="relative inline-flex overflow-hidden rounded-full p-[1px]">
-  <Button href="https://www.youtube.com/@mrryanoficial">
-    <YoutubeLogo size={24} weight="bold" />
-    <span>YT</span>
-  </Button>
-</span>
- */
+
 export default SectionHero;

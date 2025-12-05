@@ -1,51 +1,87 @@
-/* 1. Define la animación de scroll una sola vez */
-@keyframes scroll {
-  from {
+/* src/features/sections/SectionSkills.css */
+
+@keyframes infinite-scroll-move {
+  0% {
     transform: translateX(0);
   }
-  to {
+  100% {
     transform: translateX(-50%);
   }
 }
 
-/* 2. Estilos para el contenedor del carrusel */
 .carousel-container {
   width: 100%;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  /* Máscara suave */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  transform: translate3d(0, 0, 0);
 }
 
-/* 3. Estilos para la pista que contiene los iconos */
 .carousel-track {
   display: flex;
-  width: fit-content;
-  gap: 3rem;
-  padding: 1rem 0;
+  align-items: center;
+  width: max-content; 
+  gap: 4rem; 
+  padding: 3rem 0; 
   
-  /* 
-    APLICACIÓN MÁS ROBUSTA DE LA ANIMACIÓN.
-    Al poner la animación aquí y no dentro de la media query, nos aseguramos
-    de que siempre se intente aplicar.
-  */
-  animation-name: scroll;
-  animation-duration: var(--animation-duration);
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  animation: infinite-scroll-move var(--animation-duration, 40s) linear infinite;
+  will-change: transform;
+}
 
-  /* Por defecto, la animación estará pausada */
+.carousel-track:hover {
   animation-play-state: paused;
 }
 
-/* 4. Activamos la animación solo si el usuario NO ha solicitado movimiento reducido */
-@media (prefers-reduced-motion: no-preference) {
-  .carousel-track {
-    /* Aquí solo cambiamos el estado para que se reproduzca */
-    animation-play-state: running;
-  }
+.skill-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 5. Estilos para las imágenes dentro del carrusel */
+/* --- ESTILOS DE LA TARJETA DEL ICONO --- */
+
 .carousel-track img {
+  display: block;
   flex: 0 0 auto;
+  
+  /* 1. ESTILO POR DEFECTO (MODO CLARO) */
+  /* Un gris suave y un borde sutil para que se vea sobre el fondo blanco */
+  background-color: rgba(0, 0, 0, 0.06); 
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Sombra suave para darle volumen */
+  
+  border-radius: 16px;
+  padding: 10px; 
+  
+  transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transform: translateZ(0);
+}
+
+/* 2. ESTILO PARA MODO OSCURO (Sobrescribe lo anterior) */
+/* Usamos el selector .dark que Tailwind pone en el <html> */
+.dark .carousel-track img {
+  background-color: rgba(255, 255, 255, 0.08); 
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: none; /* En modo oscuro solemos quitar sombras externas */
+}
+
+/* --- ESTILOS HOVER --- */
+
+/* Hover en Modo Claro */
+.skill-item:hover img {
+  transform: scale(1.15);
+  background-color: rgba(0, 0, 0, 0.12); /* Se oscurece un poco al pasar el ratón */
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  z-index: 10;
+  cursor: pointer;
+}
+
+/* Hover en Modo Oscuro */
+.dark .skill-item:hover img {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.5); /* Sombra negra para contraste */
 }
