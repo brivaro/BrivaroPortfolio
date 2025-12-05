@@ -25,19 +25,19 @@ function ProjectCard({ project }) {
   const technologies = parseTechnologies(project.technologies);
   
   return (
-    // Eliminamos z-10 para que no tape el menú
     <li className="group relative mb-20 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10 items-start">
       
       {/* --- COLUMNA IMAGEN --- */}
-      <div className="relative w-full">
-        {/* Efecto de sombra/glow detrás de la imagen (sutil en light, brillante en dark) */}
-        <div className="absolute -inset-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 opacity-20 blur-xl transition-opacity duration-500 group-hover:opacity-40 dark:opacity-30 dark:group-hover:opacity-50"></div>
+      <div className="relative w-full perspective-1000">
+        {/* Glow de fondo: Se mantiene al pasar por la tarjeta general para dar ambiente */}
+        <div className="absolute -inset-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 opacity-20 blur-xl transition-opacity duration-500 group-hover:opacity-40 dark:opacity-30"></div>
         
         <picture className="relative block overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg transition-all dark:border-white/10 dark:bg-gray-900 dark:shadow-none">
           {project.img ? (
             <img
-              // Hover Scale restaurado y mejorado
-              className="aspect-video w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+              // CAMBIO REALIZADO: 'group-hover:scale-110' cambiado a 'hover:scale-110'
+              // Ahora solo hace zoom si el ratón está encima de la imagen
+              className="aspect-video w-full object-cover transition-transform duration-700 ease-out hover:scale-110"
               src={project.img}
               alt={project.title}
               loading="lazy"
@@ -51,7 +51,6 @@ function ProjectCard({ project }) {
       {/* --- COLUMNA TEXTO --- */}
       <div className="flex flex-col justify-center">
         
-        {/* Título: Negro en Light, Blanco en Dark */}
         <h3 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
           {project.title}
         </h3>
@@ -69,12 +68,12 @@ function ProjectCard({ project }) {
           </div>
         )}
 
-        {/* Descripción: Gris oscuro en Light, Gris claro en Dark */}
+        {/* Descripción */}
         <div className="mt-5 text-base leading-relaxed text-gray-700 dark:text-gray-300">
           <FormattedDescription text={project.description} />
         </div>
 
-        {/* Botones */}
+        {/* --- BOTONES --- */}
         <div className="mt-8 flex flex-wrap gap-4">
           
           {/* BOTÓN CÓDIGO */}
@@ -84,13 +83,13 @@ function ProjectCard({ project }) {
               target="_blank"
               rel="noopener noreferrer"
               className="
-                flex items-center gap-2 rounded-full px-6 py-2.5 font-bold transition-all duration-300
+                flex items-center gap-2 rounded-full px-6 py-2.5 font-bold transition-all duration-300 border-2
                 
-                /* MODO CLARO: Borde gris, texto oscuro, hover gris */
-                border-2 border-gray-200 bg-transparent text-gray-800 hover:border-gray-800 hover:bg-gray-50
+                /* LIGHT MODE */
+                border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white hover:-translate-y-1 hover:shadow-lg
                 
-                /* MODO OSCURO: Borde blanco suave, texto blanco, hover blanco */
-                dark:border-white/20 dark:text-white dark:hover:bg-white/10 dark:hover:border-white
+                /* DARK MODE */
+                dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-gray-900
               "
             >
               <GithubLogoIcon size={20} weight="bold" />
@@ -105,10 +104,9 @@ function ProjectCard({ project }) {
               target="_blank"
               rel="noopener noreferrer"
               className="
-                flex items-center gap-2 rounded-full px-6 py-2.5 font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg
-                
-                /* Color sólido para destacar en ambos modos */
-                bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500
+                flex items-center gap-2 rounded-full px-6 py-2.5 font-bold text-white transition-all duration-300 
+                bg-gradient-to-r from-cyan-600 to-blue-600 
+                hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/50 hover:-translate-y-1
               "
             >
               <LinkIcon size={20} weight="bold" />
