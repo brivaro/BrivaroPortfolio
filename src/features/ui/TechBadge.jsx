@@ -4,14 +4,21 @@ function TechBadge({ technology, icon }) {
   return (
     <span
       className="
-        flex items-center gap-2 rounded-lg 
-        bg-white/5 border border-white/10 px-3 py-1.5 
-        text-xs font-medium text-gray-300 transition-all duration-300 
-        hover:bg-white/10 hover:text-white hover:border-white/20 hover:scale-105
+        flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-bold shadow-sm transition-all duration-300
+        
+        /* MODO CLARO: Fondo blanco sucio, texto oscuro, borde suave */
+        bg-gray-100 text-gray-800 border border-gray-200
+        
+        /* MODO OSCURO: Fondo transparente/blanco, texto claro */
+        dark:bg-white/10 dark:text-gray-200 dark:border-white/10
+        
+        /* Hover effects */
+        hover:scale-105
       "
     >
+      {/* Eliminamos clases que fuercen el color del SVG para que se vean los colores originales */}
       <span
-        className="h-4 w-4 [&>svg]:h-full [&>svg]:w-full [&>svg]:drop-shadow-sm"
+        className="h-4 w-4 shrink-0"
         dangerouslySetInnerHTML={{ __html: icon }}
       />
       <span>{technology}</span>

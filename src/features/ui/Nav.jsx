@@ -3,7 +3,7 @@ import DarkModeToggle from "./DarkModeToggle";
 
 function Nav({ isIntersecting }) {
   return (
-    <header className="fixed top-0 z-10 mx-auto mt-2 flex w-full items-center justify-center">
+    <header className="fixed top-0 z-50 mx-auto mt-2 flex w-full items-center justify-center">
       <nav
         className={`flex items-center justify-center gap-1 sm:gap-3 rounded-full px-2 text-[13px] sm:text-[15px] font-semibold text-inherit transition-all duration-300 sm:px-3 lg:text-xl dark:text-white max-w-[95vw] overflow-x-auto scrollbar-hide ${isIntersecting ? "bg-white/0 dark:bg-black/0" : "bg-white/40 shadow-lg backdrop-blur-md"}`}
       >

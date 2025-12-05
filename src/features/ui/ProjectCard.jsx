@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { GithubLogoIcon, LinkIcon } from "@phosphor-icons/react";
-// Eliminado: import Button from "./Button"; (Causaba error 1)
 import TechBadge from "./TechBadge";
 import FormattedDescription from "./FormattedDescription";
 
@@ -22,43 +21,44 @@ const parseTechnologies = (techString) => {
     return technologies;
 };
 
-// Eliminado: { project, index } -> { project } (Causaba error 2)
 function ProjectCard({ project }) { 
   const technologies = parseTechnologies(project.technologies);
   
   return (
-    <li className="group relative mb-24 grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+    // Eliminamos z-10 para que no tape el menú
+    <li className="group relative mb-20 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10 items-start">
       
-      {/* 1. IMAGEN CON EFECTO GLOW */}
-      <div className="relative z-10 perspective-1000">
-        {/* Glow de fondo */}
-        <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 opacity-20 blur-2xl transition-opacity duration-500 group-hover:opacity-40"></div>
+      {/* --- COLUMNA IMAGEN --- */}
+      <div className="relative w-full">
+        {/* Efecto de sombra/glow detrás de la imagen (sutil en light, brillante en dark) */}
+        <div className="absolute -inset-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 opacity-20 blur-xl transition-opacity duration-500 group-hover:opacity-40 dark:opacity-30 dark:group-hover:opacity-50"></div>
         
-        <picture className="relative block overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-2xl transition-transform duration-500 group-hover:-translate-y-1">
+        <picture className="relative block overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg transition-all dark:border-white/10 dark:bg-gray-900 dark:shadow-none">
           {project.img ? (
             <img
-              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              // Hover Scale restaurado y mejorado
+              className="aspect-video w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
               src={project.img}
               alt={project.title}
               loading="lazy"
             />
           ) : (
-            <div className="aspect-video w-full bg-gray-800" />
+            <div className="aspect-video w-full bg-gray-200 dark:bg-gray-800" />
           )}
         </picture>
       </div>
 
-      {/* 2. CONTENIDO */}
-      <div className="relative z-10">
-        {/* Título con gradiente sutil */}
-        <h3 className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-3xl font-bold text-transparent sm:text-4xl">
+      {/* --- COLUMNA TEXTO --- */}
+      <div className="flex flex-col justify-center">
+        
+        {/* Título: Negro en Light, Blanco en Dark */}
+        <h3 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
           {project.title}
         </h3>
 
-        {/* Badges de tecnologías */}
+        {/* Badges */}
         {technologies.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
-            {/* Eliminado: (tech, idx) -> (tech) (Causaba error 3) */}
             {technologies.map((tech) => (
               <TechBadge 
                 key={tech.name} 
@@ -69,33 +69,49 @@ function ProjectCard({ project }) {
           </div>
         )}
 
-        {/* Descripción */}
-        <div className="mt-6 text-base leading-relaxed text-gray-400">
+        {/* Descripción: Gris oscuro en Light, Gris claro en Dark */}
+        <div className="mt-5 text-base leading-relaxed text-gray-700 dark:text-gray-300">
           <FormattedDescription text={project.description} />
         </div>
 
-        {/* Botones de acción */}
+        {/* Botones */}
         <div className="mt-8 flex flex-wrap gap-4">
+          
+          {/* BOTÓN CÓDIGO */}
           {project.code !== '#' && (
             <a 
               href={project.code}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-2.5 font-medium text-white transition-all hover:bg-white/10 hover:border-white/30 hover:shadow-lg hover:shadow-cyan-500/20"
+              className="
+                flex items-center gap-2 rounded-full px-6 py-2.5 font-bold transition-all duration-300
+                
+                /* MODO CLARO: Borde gris, texto oscuro, hover gris */
+                border-2 border-gray-200 bg-transparent text-gray-800 hover:border-gray-800 hover:bg-gray-50
+                
+                /* MODO OSCURO: Borde blanco suave, texto blanco, hover blanco */
+                dark:border-white/20 dark:text-white dark:hover:bg-white/10 dark:hover:border-white
+              "
             >
-              <GithubLogoIcon size={20} />
-              <span>Ver Código</span>
+              <GithubLogoIcon size={20} weight="bold" />
+              <span>Código</span>
             </a>
           )}
           
+          {/* BOTÓN DEMO */}
           {project.demo !== '#' && (
             <a 
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full bg-cyan-600 px-6 py-2.5 font-medium text-white shadow-lg shadow-cyan-900/20 transition-all hover:bg-cyan-500 hover:shadow-cyan-500/30 hover:-translate-y-0.5"
+              className="
+                flex items-center gap-2 rounded-full px-6 py-2.5 font-bold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg
+                
+                /* Color sólido para destacar en ambos modos */
+                bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500
+              "
             >
-              <LinkIcon size={20} />
+              <LinkIcon size={20} weight="bold" />
               <span>Ver Demo Live</span>
             </a>
           )}
